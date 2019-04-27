@@ -15,6 +15,7 @@ namespace Framework
 		void Awake() {
 			InputManager.Instance.Init();
 			GameManager.Instance.Init();
+
 		}
 	}
 }

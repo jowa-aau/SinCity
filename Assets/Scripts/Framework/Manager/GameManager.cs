@@ -26,5 +26,6 @@ namespace Framework.Manager
 			energy += value;
 			// energyText.text = energy.ToString();
 		}
+		
 	}
 }

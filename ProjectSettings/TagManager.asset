@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ants
+    uniqueID: 705572805
+    locked: 0
   - name: Newsflash
     uniqueID: 357003225
     locked: 0
