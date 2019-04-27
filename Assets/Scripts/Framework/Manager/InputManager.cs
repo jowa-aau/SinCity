@@ -5,9 +5,13 @@ namespace Framework.Manager
 	/// <summary>
 	/// This class is handles all user input and delegates it to registered listeners
 	/// </summary>
-	public class InputManager : Singleton<InputManager> {
-		public delegate void OnJumpEvent();
-		public static event OnJumpEvent OnJump;
+	public class InputManager : Singleton<InputManager>
+	{
+		public delegate void OnButton0DownEvent();
+		public delegate void OnButton1Event();
+
+		public static event OnButton0DownEvent OnButton0Down;
+		public static event OnButton1Event OnButton1;
 
 		private static bool allowInput = true;
 
@@ -23,8 +27,8 @@ namespace Framework.Manager
 		private void Update() {
 			if (allowInput) {
 #if UNITY_STANDALONE
-				if (Input.GetButtonDown("Jump")) {
-					OnJump();
+				if (Input.GetMouseButtonDown(0)) {
+					OnButton0Down();
 				}
 #elif UNITY_IOS || UNITY_ANDROID
 			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) {
@@ -83,13 +87,6 @@ namespace Framework.Manager
 #endif
 			}
 			return 0;
-		}
-
-		/// <summary>
-		/// Fires a OnJump event to all registerd listeners
-		/// </summary>
-		public static void FireJump() {
-			OnJump();
 		}
 
 		/// <summary>
