@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Framework.Types;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Framework.Manager
 {
@@ -7,10 +9,10 @@ namespace Framework.Manager
 	/// </summary>
 	public class InputManager : Singleton<InputManager>
 	{
-		public delegate void OnButton0DownEvent();
-		public delegate void OnButton1Event();
+		public delegate void OnButton0Event(InputManagerEventType type);
+		public delegate void OnButton1Event(InputManagerEventType type);
 
-		public static event OnButton0DownEvent OnButton0Down;
+		public static event OnButton0Event OnButton0;
 		public static event OnButton1Event OnButton1;
 
 		private static bool allowInput = true;
@@ -27,15 +29,35 @@ namespace Framework.Manager
 		private void Update() {
 			if (allowInput) {
 #if UNITY_STANDALONE
-				if (Input.GetMouseButtonDown(0)) {
-					OnButton0Down();
+				if (Input.GetMouseButtonDown(0))  {
+					OnButton0?.Invoke(InputManagerEventType.ButtonDown);
+				}
+				if (Input.GetMouseButtonDown(1)) {
+					OnButton1?.Invoke(InputManagerEventType.ButtonDown);
+				}
+				if (Input.GetMouseButtonUp(0)) {
+					OnButton0?.Invoke(InputManagerEventType.ButtonUp);
+				}
+				if (Input.GetMouseButtonUp(1)) {
+					OnButton1?.Invoke(InputManagerEventType.ButtonUp);
 				}
 #elif UNITY_IOS || UNITY_ANDROID
-			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) {
-				OnJump();
-			}
+				if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began) {
+					OnButton0Down?.Invoke();
+				}
 #endif
 			}
+		}
+
+		/// <summary>
+		/// Catches and retunrs current cursor postion.
+		/// </summary>
+		/// <returns>Returns a Vector3 with the current position of the cursor</returns>
+		public static Vector3 GetCursorPosition()
+		{
+#if UNITY_STANDALONE
+			return Input.mousePosition;
+#endif
 		}
 	
 		/// <summary>
@@ -48,15 +70,19 @@ namespace Framework.Manager
 			//TODO: implement Controller RT/LT movement
 			if (allowInput) {
 #if UNITY_STANDALONE
-				return Input.GetAxis(axis);
+				if (axis == "Horizontal") {
+					return Input.GetAxis("Mouse X");
+				} else if (axis == "Vertical") {
+					return Input.GetAxis("Mouse Y");
+				}
 #elif UNITY_IOS || UNITY_ANDROID
-			if (axis == "Horizontal") {
-				return Input.acceleration.x;
-			} else if (axis == "Vertical") {
-				return Input.acceleration.y;
-			}
-			throw new System.ArgumentException("Input axis \"" + axis + "\" does not exist!");
+				if (axis == "Horizontal") {
+					return Input.acceleration.x;
+				} else if (axis == "Vertical") {
+					return Input.acceleration.y;
+				}
 #endif
+				throw new System.ArgumentException("Input axis \"" + axis + "\" does not exist!");
 			}
 			return 0;
 		}

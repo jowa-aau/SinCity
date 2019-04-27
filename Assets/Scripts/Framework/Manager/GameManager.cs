@@ -19,12 +19,12 @@ namespace Framework.Manager
 		/// </summary>
 		protected void Start() {
 			energy = 0;
-			energyText.text = energy.ToString();
+			// energyText.text = energy.ToString();
 		}
 
 		public void addEnergy(int value) {
 			energy += value;
-			energyText.text = energy.ToString();
+			// energyText.text = energy.ToString();
 		}
 	}
 }
