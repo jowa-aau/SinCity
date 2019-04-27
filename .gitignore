@@ -60,6 +60,7 @@ sysinfo.txt
 [Ee]xported[Oo]bj/
 .vs/
 .consulo/
+.idea/
 /*.userprefs
 /*.csproj
 /*.pidb
@@ -80,3 +81,4 @@ Icon?
 ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
+
