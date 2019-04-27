@@ -43,8 +43,11 @@ public class NewsFlashController : MonoBehaviour
         if (messageRect.x < -Screen.width) {
             messageRect.x = messageRect.width;
         }
+        
+        GUIStyle style = new GUIStyle();
+        style.fontSize = 32;
  
-        GUI.Label(messageRect, message);
+        GUI.Label(messageRect, message, style);
     }
     
     
