@@ -17,7 +17,7 @@ public class PerfectPixel : MonoBehaviour
 	public int referenceOrthographicSize;
 	public float referencePixelsPerUnit;
 	public List<PerfectOverride> overrides;
-
+	
 	private int lastSize = 0;
 
 	// Use this for initialization
