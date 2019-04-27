@@ -9,11 +9,15 @@ namespace Camera.Movement
 	/// </summary>
 	[RequireComponent(typeof(UnityEngine.Camera))]
 	public class CameraMovement : MonoBehaviour {
-		[SerializeField] private float speed = 2f;
-
-		private Vector3 origin;
+		[SerializeField] private BoxCollider2D bounds;
+		
 		private new UnityEngine.Camera camera;
 		private bool isMovementEnabled;
+		private Vector3 cursorWorldPositionOrigin;
+		
+		private Vector3
+			min,
+			max;
 		
 		// <summary>
 		/// Used for initializion.
@@ -22,27 +26,43 @@ namespace Camera.Movement
 		/// </summary>
 		protected void Start()
 		{
+			if (bounds) {
+				min = bounds.bounds.min;
+				max = bounds.bounds.max;
+			}
+			
 			camera = GetComponent<UnityEngine.Camera>();
 			InputManager.OnButton1 += HandleButton1Event;
 		}
 
 		/// <summary>
 		/// Update is called once per frame.
-		/// Tilts the camera around Z axis
+		/// Moves the camera on button2
 		/// </summary>
-		private void Update() {
+		private void LateUpdate() {
 #if UNITY_STANDALONE
 			if (!isMovementEnabled) return;
-			Debug.Log("moving");
-			Vector3 pos = camera.ScreenToViewportPoint(Input.mousePosition - origin);
-			Vector3 move = new Vector3(pos.x * speed, pos.y * speed, origin.z);
-			transform.Translate(move, Space.World);
+			
+			Vector3 currentCameraPosition = camera.transform.position;
+			Vector3 currentCursorWorldPosition = camera.ScreenToWorldPoint(InputManager.GetCursorPosition());
+			
+			float x = currentCameraPosition.x - (currentCursorWorldPosition.x - cursorWorldPositionOrigin.x);
+			float y = currentCameraPosition.y - (currentCursorWorldPosition.y - cursorWorldPositionOrigin.y);
+			
+			float cameraHalfWidth = camera.orthographicSize * ((float) Screen.width / Screen.height);
+			
+			if (bounds) {
+				x = Mathf.Clamp(x, min.x + cameraHalfWidth, max.x - cameraHalfWidth);
+				y = Mathf.Clamp(y, min.y + camera.orthographicSize, max.y - camera.orthographicSize);
+			}
+			
+			camera.transform.position = new Vector3(x, y, currentCameraPosition.z);
 #endif
 		}
 
 		protected virtual void HandleButton1Event(InputManagerEventType type) {
 			if (type == InputManagerEventType.ButtonDown) {
-				origin = Input.mousePosition;
+				cursorWorldPositionOrigin = camera.ScreenToWorldPoint(InputManager.GetCursorPosition());
 				isMovementEnabled = true;
 			}
 			else if(type == InputManagerEventType.ButtonUp) {

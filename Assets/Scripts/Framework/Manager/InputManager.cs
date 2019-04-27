@@ -48,6 +48,17 @@ namespace Framework.Manager
 #endif
 			}
 		}
+
+		/// <summary>
+		/// Catches and retunrs current cursor postion.
+		/// </summary>
+		/// <returns>Returns a Vector3 with the current position of the cursor</returns>
+		public static Vector3 GetCursorPosition()
+		{
+#if UNITY_STANDALONE
+			return Input.mousePosition;
+#endif
+		}
 	
 		/// <summary>
 		/// Catches and retunrs user input for specified axis.
