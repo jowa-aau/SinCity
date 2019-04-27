@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 
 namespace Editor
 {
@@ -8,6 +9,7 @@ namespace Editor
         {
             TextureImporter textureImporter  = (TextureImporter) assetImporter;
             textureImporter.spritePixelsPerUnit = 64;
+            textureImporter.filterMode = FilterMode.Point;
         }
     }
 }
