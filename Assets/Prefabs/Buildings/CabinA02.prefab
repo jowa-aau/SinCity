@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1799289042430920730}
   - component: {fileID: 5100617772520398695}
   - component: {fileID: 7363522957078387080}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CabinA02
   m_TagString: Untagged
   m_Icon: {fileID: 0}

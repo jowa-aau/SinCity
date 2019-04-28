@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2170288472199585905}
   - component: {fileID: 4624980021215409932}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Umrella1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

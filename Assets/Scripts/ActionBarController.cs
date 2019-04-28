@@ -21,6 +21,7 @@ public class ActionBarController : MonoBehaviour, IBeginDragHandler, IDragHandle
     // Start drag
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("dragging");
         item = GameObject.Find("ActionTarget");
         item.transform.localScale = new Vector3(2,2,1);
     }
