@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Framework.Manager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class ActionBarController : MonoBehaviour, IBeginDragHandler, IDragHandle
     private static GameObject item;
     private Vector2 startPosition;
     private string eventName;
+    [SerializeField] private GameObject prefab;
     
     //Buttons
     private Button button;
@@ -38,13 +40,16 @@ public class ActionBarController : MonoBehaviour, IBeginDragHandler, IDragHandle
     // drop event
     public void OnEndDrag(PointerEventData eventData)
     {
-       startEvent(eventData.position);
+        Vector3 cursorpos = UnityEngine.Camera.main.ScreenToWorldPoint(InputManager.GetCursorPosition());
+       startEvent(cursorpos);
     }
 
     // start Event @ position
-    void startEvent(Vector2 position)
+    void startEvent(Vector3 position)
     {
-        Debug.Log("start event '" + eventName + "' @ " + position);
+        position.z = 0;
+        Debug.Log("start event '" + prefab.gameObject.name + "' @ " + position);
+        Instantiate(prefab, position, Quaternion.identity);
         
         // remove references
         eventName = null;
