@@ -65,8 +65,5 @@ namespace Framework.Manager
 			float percent = 1.0f - (float) antCounter / maxAnts;
 			antCounterText.color = new Color(0.762f, percent, 0.0f);
 		}
-
-		
-		
 	}
 }

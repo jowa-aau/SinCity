@@ -14,7 +14,6 @@
         private SpriteRenderer renderer;
         private float timer;
         private bool goToMiddle = false;
-        private bool inSkill = false;
         private GameManager gm;
 
 
@@ -30,7 +29,6 @@
             x = Random.Range(-1000, 1000);
             y = Random.Range(-1000, 1000);
             gm = GameManager.Instance;
-            InputManager.OnButton0 += HandleButton0Event;
             
         }
 
@@ -61,25 +59,12 @@
                 goToMiddle = false;
             }
             else if (other.gameObject.layer == LayerMask.NameToLayer("Skill")) {
-                Debug.Log("inskill");
-                inSkill = true;
+                gm.removeAnts(1);
+                Destroy(this.gameObject);
             }
         }
 
-       private void OnTriggerExit2D(Collider2D other)
-       {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Skill")) {
-                Debug.Log("out");
-                inSkill = false;
-            }
-        }
+  
        
-       private void HandleButton0Event(InputManagerEventType type)
-       {
-           if (type == InputManagerEventType.ButtonUp && inSkill) {
-               gm.removeAnts(1);
-               InputManager.OnButton0 -= HandleButton0Event;
-               Destroy(this.gameObject);
-           }
-       }
+       
     }
