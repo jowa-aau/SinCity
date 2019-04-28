@@ -27,7 +27,6 @@ namespace Framework.Manager
 		protected void Start() {
 			antCounter = 0;
 			antCounterText.text = antCounter.ToString();
-			InputManager.OnButton0 += HandleButton0Event;
 		}
 
 		public List<GameObject> GetAntPrefabs()
@@ -67,12 +66,7 @@ namespace Framework.Manager
 			antCounterText.color = new Color(0.762f, percent, 0.0f);
 		}
 
-		private void HandleButton0Event(InputManagerEventType type)
-		{
-			if (type == InputManagerEventType.ButtonDown) {
-				removeAnts(5);
-			}
-		}
+		
 		
 	}
 }

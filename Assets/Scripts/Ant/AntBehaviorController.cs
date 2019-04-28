@@ -1,5 +1,7 @@
 
     using System.Xml.Linq;
+    using Framework.Manager;
+    using Framework.Types;
     using UnityEngine;
 
     public class AntBehaviorController : MonoBehaviour
@@ -12,6 +14,8 @@
         private SpriteRenderer renderer;
         private float timer;
         private bool goToMiddle = false;
+        private bool inSkill = false;
+        private GameManager gm;
 
 
         private void Awake()
@@ -25,6 +29,9 @@
             position = gameObject.transform.position;
             x = Random.Range(-1000, 1000);
             y = Random.Range(-1000, 1000);
+            gm = GameManager.Instance;
+            InputManager.OnButton0 += HandleButton0Event;
+            
         }
 
         private void Update()
@@ -53,5 +60,24 @@
                 y = Random.Range(-1000, 1000);
                 goToMiddle = false;
             }
+            else if (other.gameObject.layer == LayerMask.NameToLayer("Skill")) {
+
+                inSkill = true;
+            }
         }
+
+       private void OnTriggerExit(Collider other)
+       {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Skill")) {
+                inSkill = false;
+            }
+        }
+       
+       private void HandleButton0Event(InputManagerEventType type)
+       {
+           if (type == InputManagerEventType.ButtonUp && inSkill) {
+               gm.removeAnts(1);
+               Destroy(this.gameObject);
+           }
+       }
     }
