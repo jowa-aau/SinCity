@@ -6,11 +6,12 @@
     {
 
         private Vector2 position;
-        public float speed = 1f;
+        private float speed = 10f;
         private float x;
         private float y;
         private SpriteRenderer renderer;
         private float timer;
+        private bool goToMiddle = false;
 
 
         private void Awake()
@@ -20,7 +21,7 @@
 
         private void Start()
         {
-            speed = Random.Range(1, 50);
+            speed = Random.Range(10, 50);
             position = gameObject.transform.position;
             x = Random.Range(-1000, 1000);
             y = Random.Range(-1000, 1000);
@@ -44,9 +45,13 @@
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Enviroment")) {
+                x = 0;
+                y = 0;
+                goToMiddle = true;
+            } else if (other.gameObject.layer == LayerMask.NameToLayer("Spawn")) {
                 x = Random.Range(-1000, 1000);
                 y = Random.Range(-1000, 1000);
-                Debug.Log("did trigger");
+                goToMiddle = false;
             }
         }
     }
