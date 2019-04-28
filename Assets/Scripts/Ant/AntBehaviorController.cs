@@ -61,14 +61,15 @@
                 goToMiddle = false;
             }
             else if (other.gameObject.layer == LayerMask.NameToLayer("Skill")) {
-
+                Debug.Log("inskill");
                 inSkill = true;
             }
         }
 
-       private void OnTriggerExit(Collider other)
+       private void OnTriggerExit2D(Collider2D other)
        {
             if (other.gameObject.layer == LayerMask.NameToLayer("Skill")) {
+                Debug.Log("out");
                 inSkill = false;
             }
         }
@@ -77,6 +78,7 @@
        {
            if (type == InputManagerEventType.ButtonUp && inSkill) {
                gm.removeAnts(1);
+               InputManager.OnButton0 -= HandleButton0Event;
                Destroy(this.gameObject);
            }
        }
