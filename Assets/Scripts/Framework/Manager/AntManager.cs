@@ -24,7 +24,8 @@ public class AntManager : Singleton<AntManager>
 	protected void Start()
 	{
 		gm = GameManager.Instance;
-		generator = new AntGenerator(gm.GetAntSpriteList());
+		AntGenerator.Instance.Init(gm.GetAntPrefabs());
+		generator = AntGenerator.Instance;
 		
 	}
 

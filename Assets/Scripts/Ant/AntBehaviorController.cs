@@ -41,4 +41,12 @@
             }
         }
 
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enviroment")) {
+                x = Random.Range(-1000, 1000);
+                y = Random.Range(-1000, 1000);
+                Debug.Log("did trigger");
+            }
+        }
     }

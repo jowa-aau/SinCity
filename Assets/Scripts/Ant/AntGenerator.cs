@@ -1,49 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Framework;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class AntGenerator 
+public class AntGenerator : Singleton<AntGenerator>
 {
-    [SerializeField] private List<Sprite> spitesList;
-    private List<GameObject> antsGameObject;
-    
+    [SerializeField] private List<GameObject> antPrefabs;
 
-    public AntGenerator(List<Sprite> spitesList)
+
+    private AntGenerator() {}
+
+    public void Init(List<GameObject> prefabs)
     {
-        antsGameObject = new List<GameObject>();
-        this.spitesList = spitesList;
+        this.antPrefabs = prefabs;
     }
 
 
     public void GenerateAnts(float x, float y , int count)
     {
         for (int i = 0; i < count; i++) {
-            int randomIndex = Random.Range(0, spitesList.Count);
-            Sprite sprite = spitesList[randomIndex];
+            int randomIndex = Random.Range(0, antPrefabs.Count);
+            GameObject prefab = antPrefabs[randomIndex];
                
-            GenerateAnt(sprite,x,y);
+            GenerateAnt(prefab,x,y);
         }
            
     }
 
-    public void GenerateAnt(Sprite antSprite, float x, float y)
+    public void GenerateAnt(GameObject antPrefab, float x, float y)
     {
-
-        GameObject go = new GameObject("ant");
-       
-        SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();
-        
-        Vector2 position = new Vector2( x,y);
-
-        renderer.sprite = antSprite;
-        
-        renderer.sortingLayerName = "Ants";
-
-        go.AddComponent<AntBehaviorController>();
-        
-        antsGameObject.Add(go);
+        Vector3 position = new Vector3(x, y, 0);
+        Instantiate(antPrefab, position, Quaternion.identity);
     }
    
 }

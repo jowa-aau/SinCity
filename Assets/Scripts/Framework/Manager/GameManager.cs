@@ -9,7 +9,7 @@ namespace Framework.Manager
 		[SerializeField] private Text antCounterText;
 		[SerializeField] private int antsPerSecond = 3;
 		[SerializeField] private int maxAnts = 100;
-		[SerializeField] private List<Sprite> antSpitesList;
+		[SerializeField] private List<GameObject> antPrefabs;
 
 		private int antCounter;
 		
@@ -30,9 +30,9 @@ namespace Framework.Manager
 			InputManager.OnButton0 += HandleButton0Event;
 		}
 
-		public List<Sprite> GetAntSpriteList()
+		public List<GameObject> GetAntPrefabs()
 		{
-			return antSpitesList;
+			return antPrefabs;
 		}
 
 		public int GetMaxAnts()
