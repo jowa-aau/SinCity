@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Framework.Types;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +12,7 @@ namespace Framework.Manager
 		[SerializeField] private List<GameObject> antPrefabs;
 
 		private int antCounter;
+		private bool isGameOver = false;
 		
 		
 		/// <summary>
@@ -27,6 +28,10 @@ namespace Framework.Manager
 		protected void Start() {
 			antCounter = 0;
 			antCounterText.text = antCounter.ToString();
+			GameObject gameover = GameObject.Find("GameOverScreen");
+			GameObject gameoverText = GameObject.Find("GameOverText");
+			gameover.transform.localScale = new Vector3(0, 0, 0);
+			gameoverText.transform.localScale = new Vector3(0, 0, 0);
 		}
 
 		public List<GameObject> GetAntPrefabs()
@@ -64,6 +69,18 @@ namespace Framework.Manager
 			antCounterText.text = antCounter.ToString();
 			float percent = 1.0f - (float) antCounter / maxAnts;
 			antCounterText.color = new Color(0.762f, percent, 0.0f);
+		}
+
+		private void Update()
+		{
+			if (maxAnts <= antCounter && !isGameOver)
+			{
+				GameObject gameover = GameObject.Find("GameOverScreen");
+				GameObject gameoverText = GameObject.Find("GameOverText");
+				gameover.transform.localScale = new Vector3(5.88f, 3f, 1f);
+				gameoverText.transform.localScale = new Vector3(0.18f, 0.33f, 1);
+				isGameOver = true;
+			}
 		}
 	}
 }

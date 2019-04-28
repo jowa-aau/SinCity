@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Framework.Manager;
 using UnityEngine;
@@ -11,12 +11,15 @@ public class ActionBarController : MonoBehaviour, IBeginDragHandler, IDragHandle
     private Vector2 startPosition;
     private string eventName;
     [SerializeField] private GameObject prefab;
+    public AudioClip Fire;
+    AudioSource audio;
     
     //Buttons
     private Button button;
 
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
         button = GetComponent<Button>();
     }
 
@@ -50,7 +53,7 @@ public class ActionBarController : MonoBehaviour, IBeginDragHandler, IDragHandle
         position.z = 0;
         Debug.Log("start event '" + prefab.gameObject.name + "' @ " + position);
         Instantiate(prefab, position, Quaternion.identity);
-        
+  
         // remove references
         eventName = null;
         item.transform.localScale = new Vector3(0, 0, 0);
