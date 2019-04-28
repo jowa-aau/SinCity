@@ -20,7 +20,7 @@
 
         private void Start()
         {
-            speed = Random.Range(0, 50);
+            speed = Random.Range(1, 50);
             position = gameObject.transform.position;
             x = Random.Range(-1000, 1000);
             y = Random.Range(-1000, 1000);

@@ -1,4 +1,5 @@
-﻿using Framework.Types;
+﻿using System.Collections.Generic;
+using Framework.Types;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,11 +7,12 @@ namespace Framework.Manager
 {
 	public class GameManager : Singleton<GameManager> {
 		[SerializeField] private Text antCounterText;
+		[SerializeField] private int antsPerSecond = 3;
 		[SerializeField] private int maxAnts = 100;
+		[SerializeField] private List<Sprite> antSpitesList;
 
 		private int antCounter;
-		private float waitTime = 1.0f;
-		private float timer = 0.0f;
+		
 		
 		/// <summary>
 		/// private constructor because singleton
@@ -23,20 +25,31 @@ namespace Framework.Manager
 		/// It is also called after Awake
 		/// </summary>
 		protected void Start() {
-			antCounter = 50;
+			antCounter = 0;
 			antCounterText.text = antCounter.ToString();
 			InputManager.OnButton0 += HandleButton0Event;
 		}
 
-		private void Update()
+		public List<Sprite> GetAntSpriteList()
 		{
-			timer += Time.deltaTime;
-			if (timer >= waitTime) {
-				addAnts(3);
-				timer = 0.0f;
-			}
+			return antSpitesList;
 		}
 
+		public int GetMaxAnts()
+		{
+			return maxAnts;
+		}
+
+		public int GetAntCounter()
+		{
+			return antCounter;
+		}
+
+		public int GetAntsPerSecond()
+		{
+			return antsPerSecond;
+		}
+		
 		public void addAnts(int value) {
 			antCounter = antCounter + value <= maxAnts ? antCounter + value : maxAnts;
 			antCounterText.text = antCounter.ToString();
