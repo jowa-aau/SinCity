@@ -1,15 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class NewsFlashController : MonoBehaviour
 {
 
-    private string message = "This is a test .... string !?! Lorem ipsum dolor sit amet, consetetur sadipscing elitr, " +
-                             "sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.";
+    private string message = "";
+                             
     public float scrollSpeed = 80;
     private bool isVisible = true;
-    
+
+    private List<string>news = new List<string>
+    {
+        "My boss can write his own news items, I quit!",
+        "DAVE, DON'T FORGET TO REPLACE THIS WITH ACTUAL TEXT!",
+        "Karen, I always wanted to tell you how I feel. Please call me!",
+        "Koalas demand recognition as Ants.",
+        "Local Ant wins Game Jam.",
+        "Police is satisfied: Only hundreds severely injured after sports game."
+    };
+
+    private void Start()
+    {
+        this.message = randomString();
+    }
+
     public Rect messageRect;
  
     void OnGUI ()
@@ -40,7 +56,9 @@ public class NewsFlashController : MonoBehaviour
         messageRect.x -= Time.deltaTime * scrollSpeed;
  
         // If the message has moved past the right side, move it back to the left
-        if (messageRect.x < -Screen.width) {
+        if (messageRect.x < -Screen.width)
+        {
+            message = randomString();
             messageRect.x = messageRect.width;
         }
         
@@ -57,11 +75,18 @@ public class NewsFlashController : MonoBehaviour
     {
         this.message = message;
     }
+    
 
     // show newsflash
     public void setVisible(bool isVisible)
     {
         this.isVisible = isVisible;
+    }
+
+    private string randomString()
+    {
+        int randomIndex = Random.Range(0, news.Count);
+        return news[randomIndex];
     }
     
     // is visiblel?

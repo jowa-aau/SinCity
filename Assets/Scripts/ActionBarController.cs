@@ -9,12 +9,15 @@ public class ActionBarController : MonoBehaviour, IBeginDragHandler, IDragHandle
     private static GameObject item;
     private Vector2 startPosition;
     private string eventName;
+    public AudioClip Fire;
+    AudioSource audio;
     
     //Buttons
     private Button button;
 
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
         button = GetComponent<Button>();
     }
 
@@ -45,7 +48,7 @@ public class ActionBarController : MonoBehaviour, IBeginDragHandler, IDragHandle
     void startEvent(Vector2 position)
     {
         Debug.Log("start event '" + eventName + "' @ " + position);
-        
+  
         // remove references
         eventName = null;
         item.transform.localScale = new Vector3(0, 0, 0);
