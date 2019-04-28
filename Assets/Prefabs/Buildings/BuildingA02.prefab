@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2592209827451531669}
   - component: {fileID: 9063549312650192616}
   - component: {fileID: 3617160360149247097}
+  - component: {fileID: -1017184899593749067}
   m_Layer: 10
   m_Name: BuildingA02
   m_TagString: Untagged
@@ -106,3 +107,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &-1017184899593749067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4346488068477403296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7cdc3180605484bbb3f007a1287352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyedSprite: {fileID: 21300000, guid: 1d7e1801ceaff47459cb2ed48ff54a26, type: 3}

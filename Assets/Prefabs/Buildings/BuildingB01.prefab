@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7334798122827425790}
   - component: {fileID: 4322086779794681987}
   - component: {fileID: 3872417022423844765}
+  - component: {fileID: 2406507929431263064}
   m_Layer: 10
-  m_Name: BuildingA03 1
+  m_Name: BuildingB01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,3 +107,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2406507929431263064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818825201786754763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7cdc3180605484bbb3f007a1287352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyedSprite: {fileID: 21300000, guid: 34f64a36f254a4c4787380bd87eecc4e, type: 3}
